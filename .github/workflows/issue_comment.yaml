@@ -26,9 +26,15 @@ jobs:
     steps:
       - name: Create comment with api
         run: |
-          gh api           
-          --method POST \
-          /repos/${OWNER}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
-          -f body='Comment but from the API call not action'
+          gh api \
+            --method POST \
+            "/repos/${OWNER}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments" \
+            -f body='Comment but from the API call not action'
         env:
           GH_TOKEN: ${{ github.token }}
+          OWNER: ${{ github.repository_owner }}
+          REPOSITORY: ${{ github.event.repository.name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+
+
